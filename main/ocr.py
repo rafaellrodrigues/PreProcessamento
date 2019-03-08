@@ -34,5 +34,5 @@ os.remove(filename)
 print(text)
 
 cv2.imshow("Image", image)
-cv2.imshow("Output", gray)
+cv2.imshow("Resultado", gray)
 cv2.waitKey(0)
