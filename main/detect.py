@@ -1,15 +1,53 @@
-import pytesseract as ocr
-import numpy as np
-import argparse
+try:
+    from PIL import Image
+except ImportError:
+    import Image
+import pytesseract
+
 import cv2
-import os
 
-from PIL import Image
 
-test = ocr.image_to_string(Image.open('E:/ProjectsTeste--Pycharm/PProcessamento_tcc/image/1.png'))
-os.remove('E:/ProjectsTeste--Pycharm/PProcessamento_tcc/image/1.png')
-print(test)
 
+
+
+
+#####-- Teste 04 --#####
+
+img = cv2.imread('E:/ProjectsTeste--Pycharm/PProcessamento_tcc/image/1.png')
+print(pytesseract.image_to_string(img))
+
+print(pytesseract.image_to_string(Image.fromarray(img)))
+#
+
+
+
+
+
+#####-- Teste 03 --#####
+
+##-- Se não tiver tesseract no PATH, incluir este metodo:
+#pytesseract.pytesseract.tesseract_cmd = r'<full_path_to_your_tesseract_executable>'
+#tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract'
+
+#print(pytesseract.image_to_string(Image.open('E:/ProjectsTeste--Pycharm/PProcessamento_tcc/image/1.png')))
+
+#print(pytesseract.image_to_string('1.png'))
+
+
+
+
+
+#######-- Teste 02 --#########
+
+#test = ocr.image_to_string(Image.open('E:/ProjectsTeste--Pycharm/PProcessamento_tcc/image/1.png'))
+#os.remove('E:/ProjectsTeste--Pycharm/PProcessamento_tcc/image/1.png')
+#print(test)
+
+
+
+
+
+#####-- Teste 01 --#####
 
 #img = cv2.imread('E:/ProjectsTeste--Pycharm/PProcessamento_tcc/image/1.png')
 #cv2.imshow('img', img)
