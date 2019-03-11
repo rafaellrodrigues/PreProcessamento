@@ -8,7 +8,7 @@ except ImportError:
     import Image
 import pytesseract
 import cv2
-
+#from matplotlib import pyplot as plt
 
 
 
@@ -18,7 +18,8 @@ img = cv2.imread('E:/ProjectsTeste--Pycharm/PProcessamento_tcc/image/1.png')
 
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-ret, bin = cv2.threshold(gray, 90, 255, cv2.THRESH_BINARY)
+
+
 
 struct = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
 imgTopHat = cv2.morphologyEx(img, cv2.MORPH_TOPHAT, struct)
@@ -26,6 +27,21 @@ imgBlackHat = cv2.morphologyEx(img, cv2.MORPH_BLACKHAT, struct)
 imgGrayPTopHat = cv2.add(img, imgTopHat)
 imgGrayPBlackHat = cv2.subtract(imgGrayPTopHat, imgBlackHat)
 
+#laplacian = cv2.Laplacian(img, cv2.CV_64F)
+sobelx = cv2.Sobel(img, cv2.CV_8U, 1,0, ksize=3,scale=1,delta=0,borderType=cv2.BORDER_DEFAULT)
+sobely = cv2.Sobel(img, cv2.CV_8U, 0,1, ksize=3,scale=1,delta=0,borderType=cv2.BORDER_DEFAULT)
+
+
+ret, bin = cv2.threshold(gray, 90, 255, cv2.THRESH_BINARY)
+#imgThs = cv2.threshold(sobelx, 0,255, cv2.THRESH_OTSU | cv2.THRESH_BINARY)
+
+morph = cv2.getStructuringElement(cv2.MORPH_RECT,(40,13))
+
+plateDetect = cv2.morphologyEx(ret, cv2.MORPH_CLOSE, morph)
+regionPlate = plateDetect.copy()
+
+#contor = cv2.findContours(regionPlate, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+#v2.drawContours(regionPlate, contor, -1, (255,255,255),18)
 
 ###-- GAUSSIAN_SMOOTH_FILTER_SIZE = (5, 5)
 imgBlur = cv2.GaussianBlur(bin, (5, 5), 0)
@@ -38,7 +54,9 @@ cv2.imshow('Original', img)
 #cv2.imshow('Desfocada', imgBlur)
 #cv2.imshow('bin', bin)
 #cv2.imshow('cont', img)
-
+# Com erro #cv2.imshow('l', laplacian)
+im =cv2.imshow('SobelX', sobelx)
+cv2.imshow('SobelY', sobely)
 
 
 
@@ -88,6 +106,9 @@ cv2.imshow('draw', img)
 #img = cv2.imread('E:/ProjectsTeste--Pycharm/PProcessamento_tcc/image/1.png')
 #print(pytesseract.image_to_string(img))
 #print(pytesseract.image_to_string(Image.fromarray(img)))
+
+
+
 
 
 
